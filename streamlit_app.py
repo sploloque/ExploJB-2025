@@ -4,13 +4,15 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
 # Show the page title and description.
-st.set_page_config(page_title="Movies dataset", page_icon="🎬")
-st.title("🎬 Movies dataset")
+st.set_page_config(page_title="Explo JB", page_icon="")
+st.title("Explo JB")
 st.write(
     """
-    This app visualizes data from [The Movie Database (TMDB)](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata).
-    It shows which movie genre performed best at the box office over the years. Just 
-    click on the widgets below to explore!
+    Un petit aperçu de l'explo à venir ? C'est ici !
+    Pour ceux qui ne connaissent pas le réseau par coeur : \n
+    La coupe du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/07/jb-2025-coupe.pdf \n
+    Le plan du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/05/jb-2025-plan1000.pdf \n
+    (Merci Xa !)
     """
 )
 
@@ -21,8 +23,8 @@ df_timing = pd.read_csv("data/timing.csv")
 df_timing["date"] = pd.to_datetime(df_timing["date"])
 
 # Configuration de Streamlit
-st.title("Trace des valeurs par série")
-st.write("Voici l'évolution des valeurs en fonction du temps pour chaque série.")
+st.title("Chronogramme de l'explo")
+st.write("Tout ce qui se passe sous terre reste sous terre...")
 
 # Création du graphique interactif avec Plotly
 fig = go.Figure()
@@ -41,7 +43,7 @@ for serie in df_timing['equipe'].unique():
 
 # Personnalisation du graphique
 fig.update_layout(
-    title='Évolution des valeurs par série',
+    title='Chronogramme détaillé',
     xaxis_title='Date',
     yaxis_title='Profondeur [m]',
     legend_title='Equipes',
