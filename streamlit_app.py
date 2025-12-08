@@ -34,15 +34,17 @@ for serie in df_timing['equipe'].unique():
         x=serie_data['date'],
         y=serie_data['profondeur'],
         mode='lines+markers',
-        name=f"équipe {serie}"
+        name=f"équipe {serie}",
+        text=serie_data['commentaire'],  # Texte des commentaires pour chaque point
+        hoverinfo='text+x+y',  # Affiche les commentaires, l'heure (x) et la valeur (y)
     ))
 
 # Personnalisation du graphique
 fig.update_layout(
     title='Évolution des valeurs par série',
-    xaxis_title='Temps',
-    yaxis_title='Valeur',
-    legend_title='Série',
+    xaxis_title='Date',
+    yaxis_title='Profondeur [m]',
+    legend_title='Equipes',
     template='plotly_dark'  # ou 'plotly', 'ggplot2', 'seaborn', etc.
 )
 
