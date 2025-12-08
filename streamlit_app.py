@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import plotly.express as px
 
 # Show the page title and description.
 st.set_page_config(page_title="Explo JB", page_icon="")
@@ -17,10 +18,49 @@ st.write(
 )
 
 
-#Importation des données de Timing
-df_timing = pd.read_csv("data/timing.csv")
+#Importation des données de progression
+df_progression = pd.read_csv("data/timing.csv")
+df_progression["date"] = pd.to_datetime(df_progression["date"])
 
-df_timing["date"] = pd.to_datetime(df_timing["date"])
+#Calcul des dates de début et de fin des équipes
+df_progression = df_progression.sort_values(by=["equipe", "date"]) # Trier par equipe et par date
+df_debut_equipe = df_progression.groupby("equipe")["date"].shift(0)
+df_fin_equipe = df_progression.groupby("equipe")["date"].shift(-1) 
+
+
+#Importation des données d'appartenances
+df_appartenances = pd.read_csv("data/equipes.csv")
+df_appartenances["date_debut"] = pd.to_datetime(df_appartenances["date_debut"])
+
+    
+
+# Trier par personne et par date
+df_appartenances = df_appartenances.sort_values(by=["personne", "date_debut"])
+
+# Calculer la date_fin
+df_appartenances["date_fin"] = df_appartenances.groupby("personne")["date_debut"].shift(-1)
+
+
+#Diagramme des equipes 
+# Préparer les données pour Plotly
+df_appartenances["date_fin"] = df_appartenances["date_fin"].fillna(pd.to_datetime("2025-12-31"))  # Remplacer NaN par une date future
+
+# Tracer avec Plotly (plus interactif)
+fig = px.timeline(
+    df_appartenances,
+    x_start="date_debut",
+    x_end="date_fin",
+    y="personne",
+    color="equipe",
+    title="Évolution des équipes dans le temps",
+    labels={"nom_equipe": "Équipe", "personne": "personne"}
+)
+
+fig.update_yaxes(categoryorder="total ascending")
+
+st.plotly_chart(fig)
+
+
 
 # Configuration de Streamlit
 st.title("Chronogramme de l'explo")
@@ -30,8 +70,8 @@ st.write("Tout ce qui se passe sous terre reste sous terre...")
 fig = go.Figure()
 
 # Ajouter une trace pour chaque série
-for serie in df_timing['equipe'].unique():
-    serie_data = df_timing[df_timing['equipe'] == serie]
+for serie in df_progression['equipe'].unique():
+    serie_data = df_progression[df_progression['equipe'] == serie]
     fig.add_trace(go.Scatter(
         x=serie_data['date'],
         y=serie_data['profondeur'],
