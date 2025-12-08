@@ -1,6 +1,7 @@
-import altair as alt
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # Show the page title and description.
 st.set_page_config(page_title="Movies dataset", page_icon="🎬")
@@ -14,53 +15,37 @@ st.write(
 )
 
 
-# Load the data from a CSV. We're caching this so it doesn't reload every time the app
-# reruns (e.g. if the user interacts with the widgets).
-@st.cache_data
-def load_data():
-    df = pd.read_csv("data/movies_genres_summary.csv")
-    return df
+#Importation des données de Timing
+df_timing = pd.read_csv("data/timing.csv")
 
+df_timing["date"] = pd.to_datetime(df_timing["date"])
 
-df = load_data()
+# Configuration de Streamlit
+st.title("Trace des valeurs par série")
+st.write("Voici l'évolution des valeurs en fonction du temps pour chaque série.")
 
-# Show a multiselect widget with the genres using `st.multiselect`.
-genres = st.multiselect(
-    "Genres",
-    df.genre.unique(),
-    ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
+# Création du graphique interactif avec Plotly
+fig = go.Figure()
+
+# Ajouter une trace pour chaque série
+for serie in df_timing['equipe'].unique():
+    serie_data = df_timing[df_timing['equipe'] == serie]
+    fig.add_trace(go.Scatter(
+        x=serie_data['date'],
+        y=serie_data['profondeur'],
+        mode='lines+markers',
+        name=f"équipe {serie}"
+    ))
+
+# Personnalisation du graphique
+fig.update_layout(
+    title='Évolution des valeurs par série',
+    xaxis_title='Temps',
+    yaxis_title='Valeur',
+    legend_title='Série',
+    template='plotly_dark'  # ou 'plotly', 'ggplot2', 'seaborn', etc.
 )
 
-# Show a slider widget with the years using `st.slider`.
-years = st.slider("Years", 1986, 2006, (2000, 2016))
+# Affichage du graphique dans Streamlit
+st.plotly_chart(fig)
 
-# Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[(df["genre"].isin(genres)) & (df["year"].between(years[0], years[1]))]
-df_reshaped = df_filtered.pivot_table(
-    index="year", columns="genre", values="gross", aggfunc="sum", fill_value=0
-)
-df_reshaped = df_reshaped.sort_values(by="year", ascending=False)
-
-
-# Display the data as a table using `st.dataframe`.
-st.dataframe(
-    df_reshaped,
-    use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
-)
-
-# Display the data as an Altair chart using `st.altair_chart`.
-df_chart = pd.melt(
-    df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
-)
-chart = (
-    alt.Chart(df_chart)
-    .mark_line()
-    .encode(
-        x=alt.X("year:N", title="Year"),
-        y=alt.Y("gross:Q", title="Gross earnings ($)"),
-        color="genre:N",
-    )
-    .properties(height=320)
-)
-st.altair_chart(chart, use_container_width=True)
