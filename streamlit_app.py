@@ -7,6 +7,7 @@ import plotly.express as px
 
 
 #Importation des données d'appartenances
+
 df_appartenances = pd.read_csv("data/equipes.csv")
 # Nettoyer les espaces supplémentaires
 df_appartenances["equipe"] = df_appartenances["equipe"].str.strip()
