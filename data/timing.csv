@@ -4,11 +4,11 @@ equipe,date,profondeur,commentaire
 1, 2025-12-20 13:00, -500, bivouac - 500 m
 1, 2025-12-20 18:00, -900, arrivée bivouac -900 m - pause bouffe
 1, 2025-12-20 19:00, -900, départ bivouac -900 m pour -1000 m
-1, 2025-12-20 20:00, -1000, départ bivouac -900 m pour -1000 m
-1, 2025-12-20 21:00, -1000, départ bivouac -900 m pour -1000 m
-1, 2025-12-20 22:00, -900, départ bivouac -900 m pour -1000 m
-1, 2025-12-20 22:30, -900, départ bivouac -900 m pour -1000 m
-1, 2025-12-21 02:00, -500, départ bivouac -900 m pour -1000 m
+1, 2025-12-20 20:00, -1000, dépose et préparation matos siphon
+1, 2025-12-20 21:00, -1000, dépose et préparation matos siphon
+1, 2025-12-20 22:00, -900, bivouac -900 m
+1, 2025-12-20 22:30, -900, bivouac -900 m
+1, 2025-12-21 02:00, -500, bivouac - 500 m
 1, 2025-12-21 09:00, -500, bivouac - 500 m
 1, 2025-12-21 13:00, -0, sortie
 
@@ -18,26 +18,21 @@ equipe,date,profondeur,commentaire
 2a, 2025-12-20 17:00, -500, bivouac - 500 m
 2a, 2025-12-20 21:00, -900, bivouac -900 m
 2a, 2025-12-21 08:00, -900, bivouac -900 m
-2a, 2025-12-21 09:00, -1000, bivouac -900 m
-2a, 2025-12-21 20:00, -1000, bivouac -900 m
+2a, 2025-12-21 09:00, -950, désob Sezhomme -950 m
+2a, 2025-12-21 14:00, -950, explo topo -900 m
+2a, 2025-12-21 16:00, -900, explo topo -900 m
+2a, 2025-12-21 20:00, -1000, siphon -1000 m
 2a, 2025-12-21 22:00, -900, bivouac -900 m
 2a, 2025-12-22 08:00, -900, bivouac -900 m
-2a, 2025-12-22 18:00, 0, bivouac -900 m
+2a, 2025-12-22 18:00, 0, sortie
 
-2b, 2025-12-20 12:00, 0, entrée sous terre
-2b, 2025-12-20 16:00, -500, bivouac - 500 m
-2b, 2025-12-20 17:00, -500, bivouac - 500 m
-2b, 2025-12-20 21:00, -900, bivouac -900 m
 2b, 2025-12-21 08:00, -900, bivouac -900 m
-2b, 2025-12-21 09:00, -1000, bivouac -900 m
-2b, 2025-12-21 10:00, -1100, bivouac -900 m
-2b, 2025-12-21 14:00, -1200, bivouac -900 m
-2b, 2025-12-21 16:00, -1200, bivouac -900 m
-2b, 2025-12-21 18:00, -1100, bivouac -900 m
-2b, 2025-12-21 20:00, -1000, bivouac -900 m
-2b, 2025-12-21 22:00, -900, bivouac -900 m
-2b, 2025-12-22 08:00, -900, bivouac -900 m
-2b, 2025-12-22 18:00, 0, bivouac -900 m
+2b, 2025-12-21 09:00, -1000, siphon 1 -1000 m
+2b, 2025-12-21 10:00, -1100, siphon 2 
+2b, 2025-12-21 14:00, -1200, intersiphon S2-S3
+2b, 2025-12-21 16:00, -1200, intersiphon S2-S3
+2b, 2025-12-21 18:00, -1100, siphon 2 
+2b, 2025-12-21 20:00, -1000, siphon 1 -1000 m
 
 3, 2025-12-20 13:00, 0, entrée sous terre
 3, 2025-12-20 18:00, -500, bivouac - 500 m
@@ -45,8 +40,8 @@ equipe,date,profondeur,commentaire
 3, 2025-12-21 13:00, -0, sortie
 
 4, 2025-12-21 10:00, 0, entrée sous terre
-4, 2025-12-21 20:00, -900, bivouac - 500 m
-4, 2025-12-21 22:00, -900, bivouac - 500 m
-4, 2025-12-22 2:00, -500, sortie
-4, 2025-12-22 9:00, -500, sortie
+4, 2025-12-21 20:00, -900, bivouac - 900 m
+4, 2025-12-21 22:00, -900, bivouac - 900 m
+4, 2025-12-22 2:00, -500, bivouac - 500 m
+4, 2025-12-22 9:00, -500, bivouac - 500 m
 4, 2025-12-22 13:00, 0, sortie

@@ -4,18 +4,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 
-# Show the page title and description.
-st.set_page_config(page_title="Explo JB", page_icon="")
-st.title("Explo JB")
-st.write(
-    """
-    Un petit aperçu de l'explo à venir ? C'est ici ! \n
-    Pour ceux qui ne connaissent pas le réseau par coeur : \n
-    La coupe du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/07/jb-2025-coupe.pdf \n
-    Le plan du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/05/jb-2025-plan1000.pdf \n
-    (Merci Xa !)
-    """
-)
 
 
 #Importation des données d'appartenances
@@ -24,7 +12,7 @@ df_appartenances = pd.read_csv("data/equipes.csv")
 df_appartenances["equipe"] = df_appartenances["equipe"].str.strip()
 df_appartenances["date_debut"] = pd.to_datetime(df_appartenances["date_debut"])
 
-#Importation des données de progression (après pour avoir les bonnes équipes)
+#Importation des données de progressionpar équipe
 df_progression = pd.read_csv("data/timing.csv")
 df_progression["equipe"] = df_progression["equipe"].astype(str).str.strip()
 df_progression["date"] = pd.to_datetime(df_progression["date"])
@@ -57,7 +45,28 @@ df_debut_equipe = df_progression.groupby("equipe")["date"].shift(0)
 df_fin_equipe = df_progression.groupby("equipe")["date"].shift(-1)
 
 
-st.write(df_appartenances)
+
+# Configuration de Streamlit
+
+# Show the page title and description.
+st.set_page_config(page_title="Explo JB", page_icon="")
+st.title("Explo JB")
+st.write(
+    """
+    Un petit aperçu de l'explo à venir ? C'est ici ! \n
+    Pour ceux qui ne connaissent pas le réseau par coeur : \n
+    La coupe du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/07/jb-2025-coupe.pdf \n
+    Le plan du JB : https://groupe-speleo-vulcain.com/wp-content/uploads/2025/05/jb-2025-plan1000.pdf \n
+    (Merci Xa !)
+    """
+)
+
+
+
+st.title("Chronogramme de l'explo")
+
+
+
 
 #Diagramme des equipes 
 # Définir une palette de couleurs pour chaque équipe
@@ -74,6 +83,9 @@ for equipe in df_appartenances["equipe"].unique():
         color_map[str(equipe)] = couleurs_equipes[str(equipe)]
     else:
         color_map[str(equipe)] = "#95A5A6"  # Gris par défaut
+
+
+
 
 # Préparer les données pour Plotly
 # Créer un ordre de tri basé sur la date_debut et date_fin de chaque personne
@@ -101,9 +113,6 @@ st.plotly_chart(fig)
 
 
 
-# Configuration de Streamlit
-st.title("Chronogramme de l'explo")
-st.write("Tout ce qui se passe sous terre reste sous terre...")
 
 # Création du graphique interactif avec Plotly
 fig = go.Figure()
