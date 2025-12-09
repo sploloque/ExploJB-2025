@@ -72,6 +72,7 @@ st.title("Chronogramme de l'explo")
 # Définir une palette de couleurs pour chaque équipe
 couleurs_equipes = {
     "1": "#E74C3C",      # Rouge corail
+    "1b": "#F49A0A",      # orange
     "2a": "#3498DB",     # Bleu ciel
     "2b": "#2980B9",     # Bleu océan
     "3": "#27AE60",      # Vert forêt
