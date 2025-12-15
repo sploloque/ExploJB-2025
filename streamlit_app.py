@@ -147,3 +147,28 @@ fig.update_layout(
 # Affichage du graphique dans Streamlit
 st.plotly_chart(fig)
 
+
+
+# Charger un fichier CSV
+
+# Lire le fichier CSV dans un DataFrame
+df = pd.read_csv("data/equipes.csv")
+
+# Afficher le DataFrame original
+st.subheader("Tableau original")
+st.dataframe(df)
+
+# Permettre la modification du DataFrame
+st.subheader("Modifier le tableau")
+edited_df = st.data_editor(df)
+
+# Bouton pour sauvegarder les modifications
+if st.button("Sauvegarder les modifications"):
+    # Demander un nom de fichier pour la sauvegarde
+    output_filename = st.text_input("Nom du fichier de sortie (sans extension)", "modified_data")
+
+    if output_filename:
+        # Sauvegarder le DataFrame modifié dans un nouveau fichier CSV
+        edited_df.to_csv("data/equipes.csv", index=False)
+        st.success(f"Fichier sauvegardé sous le nom : {output_filename}.csv")
+
